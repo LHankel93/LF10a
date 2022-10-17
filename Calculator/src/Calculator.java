@@ -1,9 +1,15 @@
 
 public class Calculator {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public Calculator() {
 
 	}
 
+	public int integerDivision(int divident, int divisor) {
+		return divident / divisor;
+	}
+
+	public int integerSubtraction(int minuend, int subtrahend) {
+		return minuend - subtrahend;
+	}
 }
