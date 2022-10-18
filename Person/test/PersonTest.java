@@ -20,8 +20,6 @@ class PersonTest {
 	@Test
 	void testPerson() {
 		System.out.println("Noch nicht implementiert.");
-//		Person test_person = new Person("Testname", "TestEmail123@test.de", "Testpasswort123");
-//		assertEquals("Testname", test_person.name);
 	}
 
 	@ParameterizedTest
@@ -29,7 +27,13 @@ class PersonTest {
 	@CsvSource({ "a@b.de", "ergn49gf45wer@efewfuerw.de", "eghn4fgwsfn4fefwf@ua.bae" })
 	void testCheckEmail_CSVSource_ShouldReturnTrue(String email) {
 		assertTrue(person.checkEmail(email));
-		;
+	}
+
+	@ParameterizedTest
+	@DisplayName("EmailCsVSource Bad")
+	@CsvSource({ "asdagrfgr.de", "@bbb.de", "bbb@" })
+	void testCheckEmail_CSVSource_ShouldReturnFalse(String email) {
+		assertFalse(person.checkEmail(email));
 	}
 
 	@ParameterizedTest
@@ -42,9 +46,15 @@ class PersonTest {
 	@ParameterizedTest
 	@DisplayName("PasswordCsVSource Good")
 	@CsvSource({ "srogn5ur4n4i3eufgnwiSD", "wsin4w34wb4ZasidFGRR", "asdfghj1" })
-	void testCheckPasswordCSVSoruce(String password) {
+	void testCheckPasswordCSVSource_ShouldReturnTrue(String password) {
 		assertTrue(person.checkPassword(password));
-		;
+	}
+
+	@ParameterizedTest
+	@DisplayName("PasswordCsVSource Bad")
+	@CsvSource({ "aaaaaaaaaaaaa", "afwerfs", "1ab" })
+	void testCheckPasswordCSVSource_ShouldReturnFalse(String password) {
+		assertFalse(person.checkPassword(password));
 	}
 
 	@ParameterizedTest
