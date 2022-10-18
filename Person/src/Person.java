@@ -19,9 +19,14 @@ public class Person {
 	private String password;
 
 	public Person(String name, String email, String password) {
-		this.name = name;
-		this.email = email;
-		this.password = password;
+		if (name.length() > 0 && checkEmail(email) && checkPassword(password)) {
+			this.name = name;
+			this.email = email;
+			this.password = password;
+		} else {
+			System.err.println("Ungültige Eingaben!");
+		}
+
 	}
 
 	public boolean checkEmail(String email) {
@@ -33,4 +38,5 @@ public class Person {
 		Matcher matcher = VALID_PASSWORD_REGEX.matcher(password);
 		return matcher.find();
 	}
+
 }
