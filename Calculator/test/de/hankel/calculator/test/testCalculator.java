@@ -23,7 +23,7 @@ class testCalculator {
 
 	@Test
 	@DisplayName("5/0=ArithmeticException")
-	void IntegerDivision_divide5_by_0_shouldReternError() {
+	void testIntegerDivision_WhenDividendIsDividedByZero() {
 		Calculator calc = new Calculator();
 		assertThrows(ArithmeticException.class, () -> {
 			calc.integerDivision(5, 0);
