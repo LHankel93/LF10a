@@ -1,3 +1,4 @@
+package de.hankel.calculator;
 
 public class Calculator {
 
@@ -11,5 +12,9 @@ public class Calculator {
 
 	public int integerSubtraction(int minuend, int subtrahend) {
 		return minuend - subtrahend;
+	}
+
+	public int integerAddition(int ersterSummand, int zweiterSummand) {
+		return ersterSummand + zweiterSummand;
 	}
 }

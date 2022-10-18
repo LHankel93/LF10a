@@ -1,6 +1,9 @@
+package de.hankel.calculator.test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import de.hankel.calculator.Calculator;
 
 class testCalculator {
 
@@ -19,11 +22,18 @@ class testCalculator {
 	}
 
 	@Test
-	@DisplayName("5/0=NullFehler")
+	@DisplayName("5/0=ArithmeticException")
 	void IntegerDivision_divide5_by_0_shouldReternError() {
 		Calculator calc = new Calculator();
 		assertThrows(ArithmeticException.class, () -> {
 			calc.integerDivision(5, 0);
 		});
+	}
+	
+	@Test
+	@DisplayName("5+5=10")
+	void IntegerAddition_add5_to_5_shouldReturn10() {
+		Calculator calc = new Calculator();
+		assertEquals(10, calc.integerAddition(5, 5));
 	}
 }
