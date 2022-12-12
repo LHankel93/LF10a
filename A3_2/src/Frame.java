@@ -37,34 +37,34 @@ public class Frame implements ActionListener {
 		frame.getContentPane().add(panelBox1, BorderLayout.NORTH);
 
 		panelBox2 = new JPanel();
+		panelBox2.getLayout();
 		frame.getContentPane().add(panelBox2, BorderLayout.CENTER);
 
 		panelBox3 = new JPanel();
+		panelBox3.getLayout();
 		frame.getContentPane().add(panelBox3, BorderLayout.SOUTH);
+		panelBox1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		lblLogin = new JLabel("Benutzername");
+		lblLogin = new JLabel("Benutzername:");
 		panelBox1.add(lblLogin);
-		// frame.getContentPane().add(lblLogin);
 
 		txtLogin = new JTextField();
+		lblLogin.setLabelFor(txtLogin);
 		txtLogin.setHorizontalAlignment(SwingConstants.CENTER);
-		// frame.getContentPane().add(txtLogin);
 		txtLogin.setColumns(10);
 		panelBox1.add(txtLogin);
 
-		lblPassword = new JLabel("Passwort");
-		// frame.getContentPane().add(lblPassword);
+		lblPassword = new JLabel("Password:");
 		panelBox2.add(lblPassword);
 
 		txtPassword = new JTextField();
+		lblPassword.setLabelFor(txtPassword);
 		txtPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPassword.setColumns(10);
-		// frame.getContentPane().add(txtPassword);
 		panelBox2.add(txtPassword);
 
 		btnLogin = new JButton("Login");
 		btnLogin.addActionListener(this);
-		// frame.getContentPane().add(btnLogin);
 		panelBox3.add(btnLogin);
 	}
 
