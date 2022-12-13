@@ -8,6 +8,11 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,22 +22,34 @@ import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import java.awt.Dimension;
+import javax.swing.SpringLayout;
 
 public class Frame implements ActionListener {
 
 	JFrame frame;
-	private JPanel panelBox1;
-	private JPanel panelBox2;
-	private JList<String> listAdressen;
+	private JPanel buttonPane;
 	private JButton btnNeu;
 	private JButton btnLoeschen;
-	private JButton btnAnzeigen;
+	private JButton btnSpeichern;
 	private JButton btnSchliessen;
 	private DefaultListModel<String> listModel;
 	private ArrayList<String> strs;
-	private JScrollPane listScroller;
-	private JPanel panelBox0;
-	private JLabel lblListe;
+	private JPanel topPane;
+	private JPanel dataPane;
+	private JPanel mitarbeiterPane;
+	private JPanel mitarbeiterPanel;
+	private JPanel suchePane;
+	private JPanel labelPane;
+	private JPanel dataDetailPane;
+	private JPanel geschlechtPane;
+	private JLabel lblMitarbeiternummer;
+	private JTextField txtMitarbeiternummer;
+	private JTextField txtSuche;
+	private JLabel lblVorname;
+	private JLabel lblNachname;
+	private JLabel lblGeburtsdatum;
+	private JTextField txtVorname;
+	private JTextField textField;
 
 	public Frame() {
 		initialize();
@@ -44,69 +61,100 @@ public class Frame implements ActionListener {
 		frame.setBounds(100, 100, 407, 265);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-		
-		panelBox0 = new JPanel();
-		frame.getContentPane().add(panelBox0);
-		
-		lblListe = new JLabel("Adressbuch");
-		lblListe.setHorizontalAlignment(SwingConstants.CENTER);
-		panelBox0.add(lblListe);
 
-		// Panel deklarieren
-		panelBox1 = new JPanel();
-		frame.getContentPane().add(panelBox1);
+		topPane = new JPanel();
+		frame.getContentPane().add(topPane);
+		topPane.setLayout(new BoxLayout(topPane, BoxLayout.X_AXIS));
 
-		panelBox2 = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) panelBox2.getLayout();
-		panelBox2.getLayout();
-		frame.getContentPane().add(panelBox2);
+		mitarbeiterPane = new JPanel();
+		FlowLayout flowLayout_1 = (FlowLayout) mitarbeiterPane.getLayout();
+		flowLayout_1.setAlignment(FlowLayout.LEFT);
+		topPane.add(mitarbeiterPane);
 
-		btnNeu = new JButton("Neu");
+		lblMitarbeiternummer = new JLabel("Mitarbeiternummer");
+		mitarbeiterPane.add(lblMitarbeiternummer);
+
+		txtMitarbeiternummer = new JTextField();
+		lblMitarbeiternummer.setLabelFor(txtMitarbeiternummer);
+		mitarbeiterPane.add(txtMitarbeiternummer);
+		txtMitarbeiternummer.setColumns(10);
+
+		suchePane = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) suchePane.getLayout();
+		flowLayout.setAlignment(FlowLayout.RIGHT);
+		topPane.add(suchePane);
+
+		txtSuche = new JTextField();
+		txtSuche.setText("Search");
+		txtSuche.setHorizontalAlignment(SwingConstants.LEFT);
+		suchePane.add(txtSuche);
+		txtSuche.setColumns(10);
+
+		dataPane = new JPanel();
+		frame.getContentPane().add(dataPane);
+		dataPane.setLayout(new BoxLayout(dataPane, BoxLayout.X_AXIS));
+
+		labelPane = new JPanel();
+		dataPane.add(labelPane);
+		labelPane.setLayout(new BoxLayout(labelPane, BoxLayout.Y_AXIS));
+
+		lblVorname = new JLabel("Vorname");
+		lblVorname.setHorizontalAlignment(SwingConstants.LEFT);
+		labelPane.add(lblVorname);
+
+		lblNachname = new JLabel("Nachname");
+		lblNachname.setHorizontalAlignment(SwingConstants.LEFT);
+		labelPane.add(lblNachname);
+
+		lblGeburtsdatum = new JLabel("Geburtsdatum");
+		labelPane.add(lblGeburtsdatum);
+
+		dataDetailPane = new JPanel();
+		dataPane.add(dataDetailPane);
+		dataDetailPane.setLayout(new BoxLayout(dataDetailPane, BoxLayout.Y_AXIS));
+
+		txtVorname = new JTextField();
+		dataDetailPane.add(txtVorname);
+		txtVorname.setColumns(10);
+
+		textField = new JTextField();
+		dataDetailPane.add(textField);
+		textField.setColumns(10);
+
+		// TODO: JDATEPICKER implementieren.
+
+		UtilDateModel model = new UtilDateModel();
+		JDatePanelImpl datePanel = new JDatePanelImpl(model);
+		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
+
+		frame.add(datePicker);
+
+		geschlechtPane = new JPanel();
+		dataPane.add(geschlechtPane);
+
+		buttonPane = new JPanel();
+		frame.getContentPane().add(buttonPane);
+
+		btnNeu = new JButton("New");
 		btnNeu.addActionListener(this);
-		panelBox2.add(btnNeu);
+		buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.X_AXIS));
+		buttonPane.add(btnNeu);
 
-		btnLoeschen = new JButton("Löschen");
+		btnLoeschen = new JButton("Delete");
 		btnLoeschen.addActionListener(this);
-		panelBox2.add(btnLoeschen);
+		buttonPane.add(btnLoeschen);
 
-		btnAnzeigen = new JButton("Anzeigen");
-		btnAnzeigen.addActionListener(this);
-		panelBox2.add(btnAnzeigen);
+		btnSpeichern = new JButton("Save");
+		btnSpeichern.addActionListener(this);
+		buttonPane.add(btnSpeichern);
 
-		btnSchliessen = new JButton("Schließen");
+		btnSchliessen = new JButton("Exit");
 		btnSchliessen.addActionListener(this);
-		panelBox2.add(btnSchliessen);
-		FlowLayout fl_panelBox1 = new FlowLayout(FlowLayout.CENTER, 5, 5);
-		panelBox1.setLayout(fl_panelBox1);
-
-		// DefaultListModel initialiseren, füllen und der JList zuweisen.
-		listAdressen = new JList<String>();
-		lblListe.setLabelFor(listAdressen);
-		listAdressen.setMinimumSize(new Dimension(100, 50));
-		listAdressen.setVisibleRowCount(8);
-		listScroller = new JScrollPane(listAdressen);
-		listScroller.setSize(new Dimension(100, 50));
-		listScroller.setMinimumSize(new Dimension(100, 40));
+		buttonPane.add(btnSchliessen);
 		listModel = new DefaultListModel<String>();
 		strs = new ArrayList<String>();
 		strs.add("Item 1");
 		listModel.add(0, strs.get(0));
-		listAdressen.setModel(listModel);
-		// panelBox1.add(listAdressen);
-		panelBox1.add(listScroller);
-		listScroller.setPreferredSize(new Dimension(200, 100));
-		listScroller.setAutoscrolls(true);
-
-	}
-
-	public void füge_Hinzu() {
-		listModel.add(listModel.size(), "Item " + (listModel.size() + 1));
-	}
-
-	public void loesche_ind(int ind) {
-		if (ind > 0) {
-			listModel.remove(ind);
-		}
 
 	}
 
@@ -124,15 +172,14 @@ public class Frame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.btnNeu) {
 			// Item hinzufügen
-			füge_Hinzu();
+
 		} else if (e.getSource() == this.btnLoeschen) {
-			// Selektiertes Element Löschen
-			loesche_ind(listAdressen.getSelectedIndex());
+			//
 		} else if (e.getSource() == this.btnSchliessen) {
 			// Programm beenden
 			System.exit(0);
-		} else if (e.getSource() == this.btnAnzeigen) {
-			anzeigen(listAdressen.getSelectedIndex());
+		} else if (e.getSource() == this.btnSpeichern) {
+
 		}
 	}
 
